@@ -19,3 +19,15 @@
 }
 ```
 
+## 내 컴퓨터에서 돌리고 싶어요
+
+```bash
+# 커맨드 창 끌때 같이 끄고 싶으면
+docker-compose up
+
+# 그런거 아니면 -d (detach)
+docker-compose up -d
+
+# 코드 수정하고 반영하고 싶으면
+docker-compose up -d --build
+```
