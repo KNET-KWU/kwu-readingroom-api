@@ -1,13 +1,17 @@
 version: "3.9"
 
 services:
-  db:
-    image: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
+  mongodb:
     volumes:
-      - kwu_api_readingroom_db:/var/lib/mysql
+      - kwu_api_readingroom_db:/data/db
+    image: mongo
+    container_name: mongodb
+    restart: always
+    # ports:
+    #   - "27017:27017"
+    command: --quiet
+    networks:
+      - kwu_api_readingroom
 
   nginx:
     container_name: nginx
@@ -16,7 +20,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 80:80
+      - 8001:80
     depends_on:
       - backend
     networks:
@@ -29,7 +33,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     depends_on:
-      - db
+      - mongodb
     ports:
       - 8080:8080
     networks:
@@ -40,7 +44,7 @@ services:
       context: ./readingroom_crawler
       dockerfile: Dockerfile
     depends_on:
-      - db
+      - mongodb
     networks:
       - kwu_api_readingroom
 
