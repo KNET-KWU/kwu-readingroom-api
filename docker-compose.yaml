@@ -35,7 +35,7 @@ services:
     depends_on:
       - mongodb
     ports:
-      - 8080:8080
+      - 8002:8002
     networks:
       - kwu_api_readingroom
 
